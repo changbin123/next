@@ -124,13 +124,13 @@ function Alert() {
     ];
     function handleDetails(row){
         router.push({
-            pathname: '/details',
+            pathname: 'alert/details',
             query: { rowData: JSON.stringify(row) },
         });
     }
     function handleEdit(row) {
         router.push({
-            pathname: '/edit',
+            pathname: 'alert/edit',
             query: { rowData: JSON.stringify(row) },
         });
     }

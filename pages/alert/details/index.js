@@ -196,7 +196,7 @@ function Details() {
                             },
                         ]}>任务名称</FormLabel>
                         <FormControlLabel
-                            control={<TextField disabled={true} id="outlined-basic" label={pathname === '/details' ? name : "任务名称"} variant="outlined" />
+                            control={<TextField disabled={true} id="outlined-basic" label={pathname === '/alert/details' ? name : "任务名称"} variant="outlined" />
                             }
                         />
                     </div>
@@ -208,7 +208,7 @@ function Details() {
                             },
                         ]}>编号</FormLabel>
                         <FormControlLabel
-                            control={<TextField disabled={true} id="outlined-basic" label={pathname === '/details' ? id : "编号"} variant="outlined" />
+                            control={<TextField disabled={true} id="outlined-basic" label={pathname === '/alert/details' ? id : "编号"} variant="outlined" />
                             }
                         />
 

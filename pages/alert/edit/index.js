@@ -19,8 +19,6 @@ function Edit() {
     const router = useRouter();
     const { pathname, query } = router;
     const row = JSON.parse(query.rowData)
-    console.log(row);
-
     const [name, setName] = useState(row.name);
     const [id, setId] = useState(row.id);
     const [alertStandard, setAlertStandard] = useState(row.alertStandard);
@@ -48,7 +46,7 @@ function Edit() {
                         },
                     ]}>任务名称</FormLabel>
                     <FormControlLabel
-                        control={<TextField disabled={pathname === '/edit'} id="outlined-basic" label={pathname === '/edit' ? name : "任务名称"} variant="outlined" />
+                        control={<TextField disabled={pathname === '/alert/edit'} id="outlined-basic" label={pathname === '/alert/edit' ? name : "任务名称"} variant="outlined" />
                         }
                     />
                 </div>
@@ -60,7 +58,7 @@ function Edit() {
                         },
                     ]}>编号</FormLabel>
                     <FormControlLabel
-                        control={<TextField disabled={pathname === '/edit'} id="outlined-basic" label={pathname === '/edit' ? id : "编号"} variant="outlined" />
+                        control={<TextField disabled={pathname === '/alert/edit'} id="outlined-basic" label={pathname === '/alert/edit' ? id : "编号"} variant="outlined" />
                         }
                     />
 
