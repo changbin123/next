@@ -7,6 +7,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Switch from '@mui/material/Switch';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import AlertEditDialog from '../../components/AlertEdit';
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -51,9 +52,12 @@ const rows = [
 function Alert() {
     const router = useRouter();
     const [newRows, setRows] = React.useState(rows);
+    const [openDialog, setOpenDialog] = React.useState(false);
+    const [selectedValue, setSelectedValue] = React.useState(newRows[0]);
+
     const columns = [
         {
-            field: 'name', headerName: '名称', width: 150, renderCell: (params) => {
+            field: 'name', headerName: '名称', width: 200, renderCell: (params) => {
                 return (
                     <>
                         <Button variant="text" color="primary" onClick={() => handleDetails(params.row)}>
@@ -88,13 +92,13 @@ function Alert() {
         {
             field: 'time',
             headerName: '最近告警时间',
-            width: 150
+            width: 200
 
         },
         {
             field: 'creater',
             headerName: '创建⼈',
-            width: 150
+            width: 200
 
         }, {
             field: 'type',
@@ -107,11 +111,11 @@ function Alert() {
         }, {
             field: 'opera',
             headerName: '操作',
-            width: 150,
+            width: 200,
             renderCell: (params) => {
                 return (
                     <>
-                        <Button variant="text" color="primary" onClick={() => handleEdit(params.row)}>
+                        <Button variant="text" color="primary" onClick={() => handleOpenDialog(params.row)}>
                             编辑
                         </Button>
                         <Button variant="text" color="error" onClick={() => handleDelete(params.row)}>
@@ -122,15 +126,9 @@ function Alert() {
             },
         },
     ];
-    function handleDetails(row){
+    function handleDetails(row) {
         router.push({
             pathname: 'alert/details',
-            query: { rowData: JSON.stringify(row) },
-        });
-    }
-    function handleEdit(row) {
-        router.push({
-            pathname: 'alert/edit',
             query: { rowData: JSON.stringify(row) },
         });
     }
@@ -150,6 +148,13 @@ function Alert() {
         const _newRows = newRows.filter((_row) => _row.id !== row.id);
         setRows(_newRows)
     }
+    const handleOpenDialog = (value) => {
+        setOpenDialog(true);
+        setSelectedValue(value);
+      };
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+      };
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
@@ -168,6 +173,11 @@ function Alert() {
                     disableRowSelectionOnClick
                 />
             </Box>
+            <AlertEditDialog
+                selectedValue={selectedValue}
+                open={openDialog}
+                onClose={handleCloseDialog}>
+            </AlertEditDialog>
         </ThemeProvider>
     );
 }

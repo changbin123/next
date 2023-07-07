@@ -52,10 +52,9 @@ const rows = [
 function Details() {
     const router = useRouter();
     const { pathname, query } = router;
-    const row = JSON.parse(query.rowData)
-    const [name, setName] = useState(row.name);
-    const [id, setId] = useState(row.id);
-    const [alertStandard, setAlertStandard] = useState(row.alertStandard);
+    const [name, setName] = useState('');
+    const [id, setId] = useState( '');
+    const [alertStandard, setAlertStandard] = useState('');
     const [threshold, setThreshold] = useState(true);
     const [send, setSend] = useState(true);
     const handleThreshold = (event) => {
@@ -142,10 +141,17 @@ function Details() {
         };
         option && myChart.setOption(option);
     }
-
     useEffect(() => {
         initChart()
     }, [])
+    useEffect(() => {
+        if(query.rowData){
+            const row = JSON.parse(query.rowData)
+            setName(row.name)
+            setId(row.id)
+            setAlertStandard(row.alertStandard)
+        }
+    }, [query.rowData])
     const [newRows, setRows] = React.useState(rows);
     const columns = [
         {
@@ -186,7 +192,6 @@ function Details() {
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <div style={{ backgroundColor: '#3A3A3A', marginBottom: '4rem' }}>
-                <FormControl>
                     {/* <InputLabel htmlFor="my-input">任务名称</InputLabel> */}
                     <div style={{ display: 'flex', marginBottom: 5 }}>
                         <FormLabel sx={[
@@ -289,7 +294,6 @@ function Details() {
                         />
 
                     </div>
-                </FormControl>
             </div>
             <Typography variant="h3">
                 预警图表
